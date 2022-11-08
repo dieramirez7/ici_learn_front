@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { useState } from 'react';
+import NavBar from './components/layout/NavBar';
 
 const App = () => {
-  return (
-    <div>To the moon 🚀🚀</div>
-  )
-}
+  const [numero, setNumero] = useState(0);
 
-export default App
+  return (
+    <div>
+      <NavBar />
+      <p>{numero}</p>
+      <button onClick={() => setNumero(numero + 1)}>Más</button>
+    </div>
+  );
+};
+
+export default App;

@@ -33,7 +33,7 @@ const Login = () => {
       <Box
         w={['full', 'md']}
         p={[8, 10]}
-        mt={[20, '5vh']}
+        mt={[5, '5vh']}
         mx='auto'
         border={['none', 'none']}
         borderColor={['', 'gray.300']}
@@ -50,18 +50,26 @@ const Login = () => {
             <FormLabel>Password</FormLabel>
             <Input variant='outline' type='password' bgColor={'white'} />
           </FormControl>
-          <HStack w='full' justify='space-between'>
-            <Checkbox borderColor={'Black'}>Recordarme.</Checkbox>
+          <Flex
+            direction={['column', 'row']}
+            justify={['space-between']}
+            align='flex-start'
+            w='full'
+          >
+            <Checkbox colorScheme='gray'>Recordarme.</Checkbox>
             <Button variant='link' colorScheme='blue' textColor={'#463F57'}>
               ¿Olvidaste la contraseña?
             </Button>
-          </HStack>
+          </Flex>
           <Button
             rounded='md'
             colorScheme='blue'
             w={['full', 'full']}
             alignSelf='end'
             bgColor={'#463F57'}
+            _hover={{
+              bgColor: 'gray.500',
+            }}
           >
             Login
           </Button>

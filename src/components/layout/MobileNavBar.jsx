@@ -40,12 +40,12 @@ const MobileNavBar = () => {
         display={['flex', 'flex', 'none']}
       >
         <IconButton icon={<HamburgerIcon />} onClick={onOpen} />
-        LOGO
+        <Image src='../../../assets/ICI_learn_logo.png' h='30px' />
         <Menu>
           <MenuButton>
             <HStack>
               <Image
-                src='https://images.ctfassets.net/1wryd5vd9xez/6imn4PsoUBr6I9Hs8jWxk4/b28965e1afec63588266cf42ba5178ae/https___cdn-images-1.medium.com_max_2000_1_7hkI-ZKsglnbjxCRV1bMZA.png'
+                src='https://cdn.pixabay.com/photo/2017/05/31/04/59/beautiful-2359121_1280.jpg'
                 alt='Casandra Martínez'
                 height='30px'
                 borderRadius='full'

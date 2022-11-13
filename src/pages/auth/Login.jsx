@@ -105,7 +105,7 @@ const Login = () => {
               </FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors.password}>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contraseña</FormLabel>
               <InputGroup bgColor='white'>
                 <Input
                   variant='outline'

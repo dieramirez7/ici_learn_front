@@ -1,19 +1,33 @@
-import React from 'react';
-import { useState } from 'react';
-import NavBar from './components/layout/NavBar';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from './context/AuthContext';
 import Login from './pages/auth/Login';
+import Dashboard from './pages/home/Dashboard';
+import Settings from './pages/home/Settings';
 
 const App = () => {
-  const [numero, setNumero] = useState(0);
+  const authContext = useContext(AuthContext);
 
-  return (
-    <div>
-      {/* <NavBar />
-      <p>{numero}</p>
-      <button onClick={() => setNumero(numero + 1)}>Más</button> */}
-      <Login />
-    </div>
-  );
+  if (authContext.isLoggedIn) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/*' element={<Dashboard />} />
+          <Route path='*' element={<Navigate to='/' />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  } else {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<Navigate to='/login' />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 };
 
 export default App;

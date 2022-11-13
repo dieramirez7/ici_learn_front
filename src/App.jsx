@@ -4,12 +4,14 @@ import AuthContext from './context/AuthContext';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/home/Dashboard';
 import Settings from './pages/home/Settings';
+import SignUp from './pages/auth/SignUp';
 
 const App = () => {
   const authContext = useContext(AuthContext);
 
   if (authContext.isLoggedIn) {
     return (
+      // <SignUp />
       <BrowserRouter>
         <Routes>
           <Route path='/settings' element={<Settings />} />
@@ -23,6 +25,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<SignUp />} />
           <Route path='*' element={<Navigate to='/login' />} />
         </Routes>
       </BrowserRouter>

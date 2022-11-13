@@ -16,16 +16,18 @@ import {
   Icon,
   useToast,
   FormErrorMessage,
+  Spinner,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useState, useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
-import * as AuthServices from '../../services/auth';
+import AuthServices from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
   const {
@@ -38,15 +40,18 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       const response = await AuthServices.login(data.email, data.password);
-      const { token } = response.data;
-      authContext.login(token);
+      const { token, usuario } = response;
+      authContext.login(token, usuario.id);
+      setIsLoading(false);
       navigate('/', { replace: true });
     } catch (err) {
       var error = 'Ocurrió un error al iniciar sesión';
       if (err.response && err.response.data && err.response.data.msg) {
         error = err.response.data.msg;
       }
+      setIsLoading(false);
       toast({
         title: 'Error',
         description: error,
@@ -94,7 +99,6 @@ const Login = () => {
                 placeholder='Introduce tu correo'
                 {...register('email', {
                   required: true,
-                  // validate: (value) => value.trim() !== '',
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   },
@@ -105,7 +109,7 @@ const Login = () => {
               </FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors.password}>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contraseña</FormLabel>
               <InputGroup bgColor='white'>
                 <Input
                   variant='outline'
@@ -153,11 +157,28 @@ const Login = () => {
                 bgColor: 'gray.500',
               }}
             >
-              Login
+              {isLoading ? (
+                <Spinner
+                  thickness='4px'
+                  speed='0.65s'
+                  emptyColor='gray.200'
+                  color='gray.500'
+                  size='sm'
+                />
+              ) : (
+                'Iniciar sesión'
+              )}
             </Button>
             <HStack w='full' justify='center'>
               <Text>¿No tienes una cuenta? </Text>
-              <Button variant='link' colorScheme='blue' textColor={'#463F57'}>
+              <Button
+                variant='link'
+                colorScheme='blue'
+                textColor={'#463F57'}
+                onClick={() => {
+                  navigate('/register', { replace: true });
+                }}
+              >
                 Registrarse
               </Button>
             </HStack>

@@ -1,5 +1,7 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/layout/navbar/NavBar';
+import AuthContext from '../../context/AuthContext';
 import Challenges from './Challenges';
 import Home from './Home';
 import Leaderboard from './Leaderboard';

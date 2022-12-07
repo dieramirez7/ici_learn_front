@@ -5,6 +5,7 @@ import {
   HStack,
   MenuList,
   MenuItem,
+  Text,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
@@ -23,10 +24,13 @@ const NavMenu = () => {
     <Menu>
       <MenuButton>
         <HStack>
+          <Text
+            display={['none', 'flex']}
+          >{`${authContext.user.nombre} ${authContext.user.apellidos}`}</Text>
           <Image
-            src='https://cdn.pixabay.com/photo/2017/05/31/04/59/beautiful-2359121_1280.jpg'
-            alt='Casandra Martínez'
-            height='30px'
+            src={`https://api.multiavatar.com/${authContext.user.email}${authContext.user.apellidos}.png`}
+            alt={`${authContext.user.nombre} ${authContext.user.apellidos}`}
+            height='40px'
             borderRadius='full'
           />
         </HStack>

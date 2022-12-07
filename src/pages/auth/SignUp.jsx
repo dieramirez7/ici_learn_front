@@ -60,16 +60,16 @@ const SignUp = () => {
         isClosable: true,
       });
       setIsLoading(false);
-      navigate('/', { replace: true });
+      navigate('/onboarding', { replace: true });
     } catch (err) {
       var error = 'Ocurrió un error al registrarse';
+      setIsLoading(false);
       if (err.response && err.response.data && err.response.data.msg) {
         error = err.response.data.msg;
       }
       if (err.message) {
         error = err.message;
       }
-      setIsLoading(false);
       toast({
         title: 'Error',
         description: error,
@@ -294,7 +294,7 @@ const SignUp = () => {
                   thickness='4px'
                   speed='0.65s'
                   emptyColor='gray.200'
-                  color='gray.500'
+                  color='blue.500'
                   size='md'
                 />
               ) : (

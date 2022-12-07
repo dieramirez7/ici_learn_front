@@ -6,7 +6,7 @@ import NavMenu from './NavMenu';
 const DesktopNavBar = ({ links }) => {
   return (
     <Flex
-      py={4}
+      py={2}
       align='center'
       justify='space-between'
       display={['none', 'none', 'flex']}

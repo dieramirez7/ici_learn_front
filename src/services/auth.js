@@ -11,19 +11,24 @@ const register = async (user) => {
     apellidos: user.lastName,
     email: user.email,
     password: user.password,
+  },)
+  return response.data
+}
+
+const getUser = async (id)=>{
+  const response = await api.get(`/usuario/${id}`, {
+    headers: {
+      'auth-token': localStorage.getItem('token')
+    }
   })
   return response.data
 }
 
-const getUsers = async () => {
-  const response = await api.get('/usuario')
-  return response
-}
 
 const AuthServices = {
   login,
   register,
-  getUsers
+  getUser,
 }
 
 export default AuthServices

@@ -48,10 +48,10 @@ const Login = () => {
       navigate('/', { replace: true });
     } catch (err) {
       var error = 'Ocurrió un error al iniciar sesión';
+      setIsLoading(false);
       if (err.response && err.response.data && err.response.data.msg) {
         error = err.response.data.msg;
       }
-      setIsLoading(false);
       toast({
         title: 'Error',
         description: error,
@@ -91,7 +91,7 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack spacing={4} align='flex-start' w='full'>
             <FormControl isInvalid={errors.email}>
-              <FormLabel>E-mail</FormLabel>
+              <FormLabel>Email</FormLabel>
               <Input
                 variant='outline'
                 bgColor={'white'}
@@ -162,7 +162,7 @@ const Login = () => {
                   thickness='4px'
                   speed='0.65s'
                   emptyColor='gray.200'
-                  color='gray.500'
+                  color='blue.500'
                   size='sm'
                 />
               ) : (

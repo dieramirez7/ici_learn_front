@@ -14,12 +14,11 @@ const App = () => {
 
   if (!authContext.isLoading) {
     if (authContext.isLoggedIn) {
-      if (!authContext.user.testCompletado) {
+      if (authContext.user.testCompletado) {
         return (
           <BrowserRouter>
             <Routes>
-              <Route path='/placement-test' element={<PlacementTest />} />
-              {/* <Route path='' */}
+              <Route path='/examen-diagnostico' element={<PlacementTest />} />
               <Route path='/' element={<Onboarding />} />
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
@@ -29,7 +28,7 @@ const App = () => {
         return (
           <BrowserRouter>
             <Routes>
-              <Route path='/settings' element={<Settings />} />
+              <Route path='/ajustes' element={<Settings />} />
               <Route path='/*' element={<Dashboard />} />
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>

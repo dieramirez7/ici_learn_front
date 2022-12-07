@@ -5,13 +5,9 @@ import {
   CircularProgress,
   CircularProgressLabel,
   Flex,
-  Grid,
-  Heading,
-  HStack,
   Icon,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -21,11 +17,11 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import PlacementTestContext from '../../context/PlacementTestContext';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import shuffleArray from '../../utils/shuffleArray';
-import { useEffect } from 'react';
+import Card from '../../components/layout/Card';
 
 const PlacementTest = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -78,89 +74,79 @@ const PlacementTest = () => {
 
   return (
     <>
-      <Grid bgColor='gray.200' h='100vh'>
-        <Center>
-          <VStack
-            spacing={8}
-            bgColor={['gray.200', 'white']}
-            p={10}
-            borderRadius={15}
-            maxW={['100%', '90%', '50%']}
-            position='relative'
-          >
-            <Progress
-              position='absolute'
-              top={0}
-              w='100%'
-              value={progress}
-              colorScheme='blackAlpha'
-              display={['none', 'block', 'block']}
-            />
-            <Text position='absolute' top={5} right={5} fontWeight='bold'>
-              Pregunta {questionIndex + 1} de{' '}
-              {placementTestContext.questions.length}
-            </Text>
-            <HStack>
-              <Text fontSize='2xl' fontWeight='bold'>
-                {placementTestContext.questions[questionIndex].question}
-              </Text>
-            </HStack>
-            {currentAnswers.map((ans, i) => {
-              return (
-                <Box
-                  onClick={() => {
-                    setSelectedAnswer(ans);
-                  }}
-                  key={ans.answer}
-                  border={
-                    selectedAnswer === ans
-                      ? '2px solid #828282'
-                      : '1px solid #b2b2b2'
-                  }
-                  borderRadius={15}
-                  p={4}
-                  bgColor='white'
-                  w='100%'
-                  _hover={{
-                    cursor: 'pointer',
-                    shadow: 'md',
-                  }}
-                >
-                  <Flex justifyContent='space-between' align='center'>
-                    <Text>{ans.answer}</Text>
-                    {selectedAnswer === ans ? (
-                      <Icon
-                        as={AiOutlineCheckCircle}
-                        color={'green.500'}
-                        w={6}
-                        h={6}
-                      />
-                    ) : (
-                      <Box
-                        border='1px solid #b2b2b2'
-                        borderRadius={30}
-                        w={6}
-                        h={6}
-                      ></Box>
-                    )}
-                  </Flex>
-                </Box>
-              );
-            })}
-            <Button
-              w='100%'
-              colorScheme='blackAlpha'
-              size='lg'
-              disabled={selectedAnswer === null}
+      <Card autoHeight={true}>
+        <Progress
+          position='absolute'
+          top={0}
+          left={0}
+          w='100%'
+          value={progress}
+          colorScheme='blackAlpha'
+          display={['none', 'block', 'block']}
+        />
+        <Text position='absolute' top={5} right={5} fontWeight='bold'>
+          Pregunta {questionIndex + 1} de{' '}
+          {placementTestContext.questions.length}
+        </Text>
+        {/* <HStack> */}
+        <Text fontSize='2xl' fontWeight='bold'>
+          {placementTestContext.questions[questionIndex].question}
+        </Text>
+        {/* </HStack> */}
+        {currentAnswers.map((ans, i) => {
+          return (
+            <Box
               onClick={() => {
-                handleAnswer();
+                setSelectedAnswer(ans);
+              }}
+              key={ans.answer}
+              border={
+                selectedAnswer === ans
+                  ? '2px solid #828282'
+                  : '1px solid #b2b2b2'
+              }
+              borderRadius={15}
+              p={4}
+              bgColor='white'
+              w='100%'
+              _hover={{
+                cursor: 'pointer',
+                shadow: 'md',
               }}
             >
-              Siguiente
-            </Button>
-          </VStack>
-        </Center>
-      </Grid>
+              <Flex justifyContent='space-between' align='center'>
+                <Text>{ans.answer}</Text>
+                {selectedAnswer === ans ? (
+                  <Icon
+                    as={AiOutlineCheckCircle}
+                    color={'green.500'}
+                    w={6}
+                    h={6}
+                  />
+                ) : (
+                  <Box
+                    border='1px solid #b2b2b2'
+                    borderRadius={30}
+                    w={6}
+                    h={6}
+                  ></Box>
+                )}
+              </Flex>
+            </Box>
+          );
+        })}
+        <Button
+          w='100%'
+          colorScheme='blackAlpha'
+          size='lg'
+          disabled={selectedAnswer === null}
+          onClick={() => {
+            handleAnswer();
+          }}
+        >
+          Siguiente
+        </Button>
+      </Card>
       <Modal
         isOpen={isOpen}
         onClose={onClose}

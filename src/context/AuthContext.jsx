@@ -32,6 +32,10 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('userId');
   };
 
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -44,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, isLoggedIn, login, logout, user, isLoading }}
+      value={{ token, isLoggedIn, login, logout, user, isLoading, updateUser }}
     >
       {children}
     </AuthContext.Provider>

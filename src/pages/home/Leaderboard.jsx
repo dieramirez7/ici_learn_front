@@ -13,7 +13,12 @@ import React from 'react';
 
 const Leaderboard = () => {
   return (
-    <Box bgColor={['gray.100', 'gray.100']} height='100vh'>
+    <Box
+      bgColor={['gray.100', 'gray.100']}
+      spacing={10}
+      mb={10}
+      pt={['80px', '60px']}
+    >
       <Box w={['full', 'lgs']} p={[8, 10]} mx='auto'>
         <Center fontWeight='bold' fontSize='40px'>
           Leaderboard

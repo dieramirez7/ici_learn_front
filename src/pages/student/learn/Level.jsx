@@ -13,7 +13,7 @@ const Level = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authContext.user.nivel < level) {
+    if (authContext.student.nivel < level) {
       navigate('/aprende');
     }
     getData();

@@ -41,13 +41,49 @@ const Login = () => {
   const authContext = useContext(AuthContext);
 
   const onSubmit = async (data) => {
+    if (isStudent) {
+      handleLoginStudent(data);
+    } else {
+      handleLoginTeacher(data);
+    }
+  };
+
+  const handleLoginStudent = async (data) => {
     try {
       setIsLoading(true);
-      const response = isStudent
-        ? await AuthServices.login(data.email, data.password)
-        : await AuthServices.loginProfessor(data.email, data.password);
+      const response = await AuthServices.loginStudent(
+        data.email,
+        data.password
+      );
       const { token, usuario } = response;
-      authContext.login(token, usuario.id);
+      authContext.loginStudent(token, usuario.id);
+      setIsLoading(false);
+      navigate('/', { replace: true });
+    } catch (err) {
+      var error = 'Ocurrió un error al iniciar sesión';
+      setIsLoading(false);
+      if (err.response && err.response.data && err.response.data.msg) {
+        error = err.response.data.msg;
+      }
+      toast({
+        title: 'Error',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleLoginTeacher = async (data) => {
+    try {
+      setIsLoading(true);
+      const response = await AuthServices.loginTeacher(
+        data.email,
+        data.password
+      );
+      const { token, profesor } = response;
+      authContext.loginTeacher(token, profesor.id);
       setIsLoading(false);
       navigate('/', { replace: true });
     } catch (err) {
@@ -80,16 +116,6 @@ const Login = () => {
       <VStack spacing={1} align={['center', 'center']} w='full'>
         <Heading textColor='Black'>Bienvenido</Heading>
         <Text>Ingresa tus credenciales para entrar</Text>
-        <HStack w='full' justify='center'>
-          <Text>Estudiante</Text>
-          <Switch
-            isChecked={!isStudent}
-            onChange={() => setIsStudent(!isStudent)}
-            color='blue'
-            size='md'
-          ></Switch>
-          <Text>Profesor</Text>
-        </HStack>
       </VStack>
       <Box
         w={['full', 'md']}
@@ -102,6 +128,20 @@ const Login = () => {
         backgroundColor={['gray.100', 'white']}
         shadow={['none', 'md']}
       >
+        <Text fontSize='xl' fontWeight='bold' mb={4} textAlign='center'>
+          Entrar como:
+        </Text>
+        <HStack w='full' justify='center' spacing={5}>
+          <Text fontWeight={isStudent ? 'bold' : 'normal'}>Estudiante</Text>
+          <Switch
+            isChecked={!isStudent}
+            onChange={() => setIsStudent(!isStudent)}
+            colorScheme='gray'
+            size='md'
+          />
+          <Text fontWeight={!isStudent ? 'bold' : 'normal'}>Profesor</Text>
+        </HStack>
+        <Box mt={4}></Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack spacing={4} align='flex-start' w='full'>
             <FormControl isInvalid={errors.email}>

@@ -15,7 +15,7 @@ const Learn = () => {
         <LevelCircle
           key={level}
           level={level}
-          isEnabled={level <= authContext.user.nivel}
+          isEnabled={level <= authContext.student.nivel}
         />
       ))}
     </VStack>

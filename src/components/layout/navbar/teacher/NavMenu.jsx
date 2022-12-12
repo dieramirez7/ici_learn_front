@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import AuthContext from '../../../context/AuthContext';
+import AuthContext from '../../../../context/AuthContext';
 
 const NavMenu = () => {
   const navigate = useNavigate();
@@ -25,18 +25,17 @@ const NavMenu = () => {
       <MenuButton>
         <HStack>
           <Text
-            display={['none', 'flex']}
-          >{`${authContext.user.nombre} ${authContext.user.apellidos}`}</Text>
+            display={['none', 'none', 'flex']}
+          >{`${authContext.teacher.nombre} ${authContext.teacher.apellidos}`}</Text>
           <Image
-            src={`https://api.multiavatar.com/${authContext.user.email}${authContext.user.apellidos}.png`}
-            alt={`${authContext.user.nombre} ${authContext.user.apellidos}`}
+            src={`https://api.multiavatar.com/${authContext.teacher.email}${authContext.teacher.apellidos}.png`}
+            alt={`${authContext.teacher.nombre} ${authContext.teacher.apellidos}`}
             height='40px'
             borderRadius='full'
           />
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem>Perfil</MenuItem>
         <MenuItem
           onClick={() => {
             navigate('/settings');

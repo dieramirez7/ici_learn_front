@@ -17,6 +17,7 @@ import {
   useToast,
   FormErrorMessage,
   Spinner,
+  Switch,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -28,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStudent, setIsStudent] = useState(true);
   const toast = useToast();
   const navigate = useNavigate();
   const {
@@ -41,7 +43,9 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      const response = await AuthServices.login(data.email, data.password);
+      const response = isStudent
+        ? await AuthServices.login(data.email, data.password)
+        : await AuthServices.loginProfessor(data.email, data.password);
       const { token, usuario } = response;
       authContext.login(token, usuario.id);
       setIsLoading(false);
@@ -76,6 +80,16 @@ const Login = () => {
       <VStack spacing={1} align={['center', 'center']} w='full'>
         <Heading textColor='Black'>Bienvenido</Heading>
         <Text>Ingresa tus credenciales para entrar</Text>
+        <HStack w='full' justify='center'>
+          <Text>Estudiante</Text>
+          <Switch
+            isChecked={!isStudent}
+            onChange={() => setIsStudent(!isStudent)}
+            color='blue'
+            size='md'
+          ></Switch>
+          <Text>Profesor</Text>
+        </HStack>
       </VStack>
       <Box
         w={['full', 'md']}

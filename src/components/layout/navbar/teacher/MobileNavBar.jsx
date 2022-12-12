@@ -1,25 +1,10 @@
-import {
-  Divider,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  IconButton,
-  VStack,
-  useDisclosure,
-  Image,
-  Box,
-} from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import NavBarItem from './NavBarItem';
+import { Flex, Image, Link } from '@chakra-ui/react';
+import { Link as ReactLink } from 'react-router-dom';
 
 import NavMenu from './NavMenu';
 
 const MobileNavBar = ({ links }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -29,11 +14,13 @@ const MobileNavBar = ({ links }) => {
         justify='space-between'
         display={['flex', 'flex', 'none']}
       >
-        <IconButton icon={<HamburgerIcon />} onClick={onOpen} />
-        <Image src='../../../../assets/ICI_learn_logo.png' h='30px' />
+        {/* <IconButton icon={<HamburgerIcon />} onClick={onOpen} /> */}
+        <Link as={ReactLink} to='/'>
+          <Image src='../../../../assets/ICI_learn_logo.png' h='30px' />
+        </Link>
         <NavMenu />
       </Flex>
-      <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
+      {/* <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader></DrawerHeader>
@@ -51,7 +38,7 @@ const MobileNavBar = ({ links }) => {
             </VStack>
           </DrawerBody>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </>
   );
 };

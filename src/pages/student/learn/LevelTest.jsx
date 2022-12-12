@@ -42,7 +42,7 @@ const LevelTest = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authContext.user.nivel < level) {
+    if (authContext.student.nivel < level) {
       navigate('/aprende');
     }
     if (!levelContext.checkIfSameLevel(level)) {
@@ -51,7 +51,6 @@ const LevelTest = () => {
   }, []);
 
   useEffect(() => {
-    console.log(levelContext.currentLevel);
     if (levelContext.currentLevel) {
       const answers = levelContext.currentLevel.preguntas[
         questionIndex
@@ -108,7 +107,7 @@ const LevelTest = () => {
   };
 
   const handleSubmit = async () => {
-    if (level < authContext.user.nivel) {
+    if (level < authContext.student.nivel) {
       return;
     }
     if (
@@ -118,7 +117,7 @@ const LevelTest = () => {
       setIsLoading(true);
       try {
         const res = await LevelsService.levelUp();
-        authContext.updateUser(res.usuario);
+        authContext.updateStudent(res.usuario);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);

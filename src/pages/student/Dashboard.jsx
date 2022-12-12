@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import NavBar from '../../components/layout/navbar/NavBar';
 import Challenges from './Challenges';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
@@ -8,6 +7,7 @@ import LevelLection from './learn/LevelLection';
 import Level from './learn/Level';
 import LevelTest from './learn/LevelTest';
 import ExtraResources from './learn/ExtraResources';
+import NavBar from '../../components/layout/navbar/student/NavBar';
 
 const Dashboard = () => {
   return (

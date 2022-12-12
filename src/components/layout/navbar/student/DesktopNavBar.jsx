@@ -1,5 +1,5 @@
 import { Flex, HStack, Image, Link } from '@chakra-ui/react';
-import NavBarItem from './NavBarItem';
+import NavBarItem from '../NavBarItem';
 import { Link as ReactLink } from 'react-router-dom';
 import NavMenu from './NavMenu';
 

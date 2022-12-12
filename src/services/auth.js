@@ -1,9 +1,14 @@
-import api from "../utils/api"
+import api from '../utils/api';
 
-const login = async (email, password) => {
-  const response = await api.post('/usuario/login', {email, password})
-  return response.data
-}
+const loginStudent = async (email, password) => {
+  const response = await api.post('/usuario/login', { email, password });
+  return response.data;
+};
+
+const loginTeacher = async (email, password) => {
+  const response = await api.post('/profesor/login', { email, password });
+  return response.data;
+};
 
 const register = async (user) => {
   const response = await api.post('/usuario', {
@@ -11,24 +16,34 @@ const register = async (user) => {
     apellidos: user.lastName,
     email: user.email,
     password: user.password,
-  },)
-  return response.data
-}
+  });
+  return response.data;
+};
 
-const getUser = async (id)=>{
+const getStudent = async (id) => {
   const response = await api.get(`/usuario/${id}`, {
     headers: {
-      'auth-token': localStorage.getItem('token')
-    }
-  })
-  return response.data
-}
+      'auth-token': localStorage.getItem('token'),
+    },
+  });
+  return response.data;
+};
 
+const getTeacher = async (id) => {
+  const response = await api.get(`/profesor/${id}`, {
+    headers: {
+      'auth-token': localStorage.getItem('token'),
+    },
+  });
+  return response.data;
+};
 
 const AuthServices = {
-  login,
+  loginStudent,
+  loginTeacher,
   register,
-  getUser,
-}
+  getStudent,
+  getTeacher,
+};
 
-export default AuthServices
+export default AuthServices;

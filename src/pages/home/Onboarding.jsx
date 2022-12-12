@@ -55,7 +55,7 @@ const Onboarding = () => {
             <Button
               colorScheme={'blackAlpha'}
               onClick={() => {
-                navigate('/placement-test', { replace: true });
+                navigate('/examen-diagnostico', { replace: true });
               }}
             >
               Comenzar el examen de diagnóstico

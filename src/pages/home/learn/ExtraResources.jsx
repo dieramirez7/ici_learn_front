@@ -10,14 +10,19 @@ import {
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Card from '../../../components/layout/Card';
+import AuthContext from '../../../context/AuthContext';
 import LevelContext from '../../../context/LevelContext';
 
 const ExtraResources = () => {
   const levelContext = useContext(LevelContext);
+  const authContext = useContext(AuthContext);
   const { level } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authContext.user.nivel < level) {
+      navigate('/aprende');
+    }
     if (!levelContext.checkIfSameLevel(level)) {
       levelContext.getLevel(level);
     }

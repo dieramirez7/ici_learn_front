@@ -42,12 +42,16 @@ const LevelTest = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authContext.user.nivel < level) {
+      navigate('/aprende');
+    }
     if (!levelContext.checkIfSameLevel(level)) {
       levelContext.getLevel(level);
     }
   }, []);
 
   useEffect(() => {
+    console.log(levelContext.currentLevel);
     if (levelContext.currentLevel) {
       const answers = levelContext.currentLevel.preguntas[
         questionIndex
